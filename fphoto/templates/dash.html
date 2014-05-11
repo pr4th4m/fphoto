@@ -1,0 +1,10 @@
+
+<h1>Welcome, {{ request.user.profile_or_self.facebook_name }}</h1><a href="{% url 'logout' %}?next={{ request.path|urlencode }}">logout</a><br />
+
+{% for album, photo in display_photos %}
+
+{{ album.name }}
+<img src={{ photo.source }}>
+</br>
+
+{% endfor %}
