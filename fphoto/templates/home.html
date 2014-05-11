@@ -1,11 +1,79 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}FPhoto{% endblock %}</title>
+        <meta content="width=device-width, initial-scale=1" name="viewport">
 
-<link href="{{ STATIC_URL }}django_facebook/css/facebook.css" type="text/css" rel="stylesheet" media="all" />
-{% include 'django_facebook/_facebook_js.html' %}
+        {% block css %}
+        <link media="screen" href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}django_facebook/css/facebook.css" type="text/css" rel="stylesheet" media="all" />
+        <link href="{{ STATIC_URL }}css/lightbox.css" rel="stylesheet">
+        {% endblock %}
 
-<form action="{% url 'facebook_connect' %}?facebook_login=1" method="post">
-    <input type="hidden" value="{% url 'dash' %}" name="next" />
-    <input type="hidden" value="{% url 'dash' %}" name="register_next" />
-    <input type="hidden" value="{{ request.path }}" name="error_next" />
-    {% csrf_token %}
-    <input onclick="F.connect(this.parentNode); return false;" type="image" src="{{ STATIC_URL }}django_facebook/images/facebook_login.png" />
-</form>
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
+        <script src="../bower_components/respond/dest/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <!-- header and navigation -->
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">FPhoto</a>
+                </div>
+                <div id="navbar-main" class="navbar-collapse collapse">
+                    {% if request.user.is_authenticated %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a ><em>Welcome, {{ request.user.profile_or_self.facebook_name }}</em></a></li>
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% block content %}
+            {% include 'django_facebook/_facebook_js.html' %}
+
+            <!-- main container -->
+            <div class="container">
+                <div class="bs-docs-section" style="padding-top:10px;">
+                </div>
+
+                <div class="bs-docs-section">
+                    <div class="row">
+                        <div class="jumbotron">
+                            <center>
+                            <h3></h3>
+                            <form action="{% url 'facebook_connect' %}?facebook_login=1" method="post">
+                                <input type="hidden" value="{% url 'dash' %}" name="next" />
+                                <input type="hidden" value="{{ request.path }}" name="register_next" />
+                                <input type="hidden" value="{{ request.path }}" name="error_next" />
+                                {% csrf_token %}
+                                <input onclick="F.connect(this.parentNode); return false;" type="image" src="{{ STATIC_URL }}django_facebook/images/facebook_login.png" />
+                            </form>
+                        </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+
+        {% block js %}
+            <!-- required javascript -->
+            <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
+            <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+            <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+            <script src="{{ STATIC_URL }}js/lightbox.min.js"></script>
+        {% endblock %}
+    </body>
+</html>
+
+

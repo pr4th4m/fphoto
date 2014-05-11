@@ -1,7 +1,7 @@
 {% extends "home.html" %}
 
 {% block title %}
-Dashboard
+404 Page Not Found
 {% endblock %}
 
 {% block content %}
@@ -11,11 +11,9 @@ Dashboard
             <div class="bs-component">
                 <div class="jumbotron">
                     <div style="padding-top:40px;">
-                        {% for album, thumbnail, large in display_photos %}
-                            <a href="{{ large.source }}" data-lightbox="photos" data-title="Album: {{ album.name }}">
-                                <img src="{{ thumbnail.source }}"></img>
-                            </a>
-                        {% endfor %}
+                        <center>
+                        <h3>Page Not Found</h3>
+                        </center>
                     </div>
                 </div>
             </div>

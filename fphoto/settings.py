@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from os.path import join
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -20,12 +21,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '2y*rnwr#79j322vc+wln8t^jm+65$gus%+c&x4592j3$5y*&#('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -99,6 +99,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Define template dir
+TEMPLATE_DIRS = (join(BASE_DIR, 'templates'),)
 
 # fb app and secret id for auth and access
 FACEBOOK_APP_ID = "407599786049541"
